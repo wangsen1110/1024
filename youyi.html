@@ -1,52 +1,56 @@
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>二维码下载</title>
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>手机APP下载页面：根据终端辨别下载地址</title>
+    <script type="text/javascript">
+        // 获取终端的相关信息
+        var Terminal = {
+            // 辨别移动终端类型
+            platform : function(){
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {
+                    // android终端或者uc浏览器
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1,
+                    // 是否为iPhone或者QQHD浏览器
+                    iPhone: u.indexOf('iPhone') > -1 ,
+                    // 是否iPad
+                    iPad: u.indexOf('iPad') > -1
+                };
+            }(),
+            // 辨别移动终端的语言：zh-cn、en-us、ko-kr、ja-jp...
+            language : (navigator.browserLanguage || navigator.language).toLowerCase()
+        }
 
-        <script type="text/javascript">
-            /*
-             * 智能机浏览器版本信息:
-             *
-             */
-            var browser = {
-                versions: function() {
-                    var u = navigator.userAgent, app = navigator.appVersion;
-                    return {//移动终端浏览器版本信息
-                        trident: u.indexOf('Trident') > -1, //IE内核
-                        presto: u.indexOf('Presto') > -1, //opera内核
-                        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-                        mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
-                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-                        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
-                        iPad: u.indexOf('iPad') > -1, //是否iPad
-                        webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
-                    };
-                }(),
-                language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        // 根据不同的终端，跳转到不同的地址
+        var theUrl = 'https://github.com/wangsen1110/NetSupport/raw/master/app/release/app-release.apk';
+        if(Terminal.platform.android){
+            theUrl = 'https://github.com/wangsen1110/NetSupport/raw/master/app/release/app-release.apk';
+        }else if(Terminal.platform.iPhone){
+            theUrl = 'https://github.com/wangsen1110/NetSupport/raw/master/app/release/app-release.apk';
+        }else if(Terminal.platform.iPad){
+            // 还可以通过language，区分开多国语言版
+            switch(Terminal.language){
+                case 'en-us':
+                    theUrl = 'https://github.com/wangsen1110/NetSupport/raw/master/app/release/app-release.apk';
+                    break;
+                case 'ko-kr':
+                    theUrl = 'https://github.com/wangsen1110/NetSupport/raw/master/app/release/app-release.apk';
+                    break;
+                case 'ja-jp':
+                    theUrl = 'https://github.com/wangsen1110/NetSupport/raw/master/app/release/app-release.apk';
+                    break;
+                default:
+                    theUrl = 'https://github.com/wangsen1110/NetSupport/raw/master/app/release/app-release.apk';
             }
+        }
 
-            if (browser.versions.ios || browser.versions.iPhone || browser.versions.iPad) {
-// TODO 此处写ios的下载地址
-window.location="https://github.com/wangsen1110/NetSupport/raw/master/app/release/app-release.apk";
-            }
-            else if (browser.versions.android) {
- // 此处写Andoird 的下载地址
-  window.location="https://github.com/wangsen1110/NetSupport/raw/master/app/release/app-release.apk";
-            }
+        location.href = theUrl;
+    </script>
+</head>
+<body>
+    <!--
 
-//            document.writeln("语言版本: " + browser.language);
-//            document.writeln(" 是否为移动终端: " + browser.versions.mobile);
-//            document.writeln(" ios终端: " + browser.versions.ios);
-//            document.writeln(" android终端: " + browser.versions.android);
-//            document.writeln(" 是否为iPhone: " + browser.versions.iPhone);
-//            document.writeln(" 是否iPad: " + browser.versions.iPad);
-//            document.writeln(navigator.userAgent);
-
-        </script>
-    </head>
-    <body>
-
-    </body>
+    -->
+</body>
 </html>
